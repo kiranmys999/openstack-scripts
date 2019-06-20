@@ -48,13 +48,14 @@ if [ "$1" == "controller" ]
 		create-api-endpoints compute http://$2:8774/v2.1
 		echo_and_sleep "Created Endpoint for Nova" 2
 
-		echo_and_sleep "OCATA: Creating Placement User and Service" 2
+		echo_and_sleep "ROCKY: Creating Placement User and Service" 2
 		create-user-service placement placement placement OpenStackPlacementAPI placement
 		create-api-endpoints placement http://$2:8778
 		echo_and_sleep "Created Endpoint for Nova Placement API" 2
 		
 		crudini --set /etc/nova/nova.conf api_database connection mysql+pymysql://nova:$5@$2/nova_api
 		crudini --set /etc/nova/nova.conf database connection mysql+pymysql://nova:$5@$2/nova
+		crudini --set /etc/nova/nova.conf placement_database connection mysql+pymysql://placement:$5@$2/placement
 		echo_and_sleep "Configured NOVA DB Connection" 2
 
 fi
@@ -96,7 +97,7 @@ elif [ "$1" == "compute" ]
 		crudini --set /etc/nova/nova.conf vnc vncserver_listen 0.0.0.0
 		crudini --set /etc/nova/nova.conf vnc novncproxy_base_url http://$controller_ip:6080/vnc_auto.html
 
-		echo_and_sleep "OCATA: Setting cell autodisovery time interval" 2
+		echo_and_sleep "ROCKY: Setting cell autodisovery time interval" 2
 		crudini --set /etc/nova/nova.conf scheduler discover_hosts_in_cells_interval 10
 fi
 
@@ -108,9 +109,9 @@ if [ "$1" == "controller" ]
 	then
 		echo_and_sleep "Populate Image Nova Database" 1
 		nova-manage api_db sync
-		echo_and_sleep "OCATA: Mapping Nova Cells" 2
+		echo_and_sleep "ROCKY: Mapping Nova Cells" 2
 		nova-manage cell_v2 map_cell0
-		echo_and_sleep "OCATA: Creating Cell..." 2
+		echo_and_sleep "ROCKY: Creating Cell..." 2
 		nova-manage cell_v2 create_cell --name=cell1 --verbose
 		nova-manage db sync
 		echo_and_sleep "Restarting Nova Service" 2
