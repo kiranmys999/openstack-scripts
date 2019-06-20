@@ -13,7 +13,7 @@ sed -e "/^OPENSTACK_HOST =.*$/s/^.*$/OPENSTACK_HOST = \""$1"\"/" -i /etc/opensta
 sed -e "/^'LOCATION.*$/s/^.*$/'LOCATION': \'"$1:1121"\'/" -i /etc/openstack-dashboard/local_settings.py
 grep "OPENSTACK_HOST" /etc/openstack-dashboard/local_settings.py
 grep "LOCATION" /etc/openstack-dashboard/local_settings.py
-echo_and_sleep "OCATA - fixing secret_key permission" 1
+echo_and_sleep "ROCKY - fixing secret_key permission" 1
 #chown www-data /var/lib/openstack-dashboard/secret_key
 chown horizon:horizon /var/lib/openstack-dashboard/secret_key
 echo_and_sleep "Restarting apache2" 1
