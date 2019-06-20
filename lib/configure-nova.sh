@@ -38,6 +38,11 @@ if [ "$1" == "controller" ]
 		echo "MySQL Command is:: "$mysql_command 
 		mysql -u "$6" -p"$7" -e "$mysql_command"
 
+		echo_and_sleep "Configuring MySQL for Placement..." 2
+		mysql_command="CREATE DATABASE IF NOT EXISTS placement; GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'%' IDENTIFIED BY '$5';"
+		echo "MySQL Command is:: "$mysql_command 
+		mysql -u "$6" -p"$7" -e "$mysql_command"
+		
 		create-user-service nova $3 nova OpenStackCompute compute
 		
 		create-api-endpoints compute http://$2:8774/v2.1
