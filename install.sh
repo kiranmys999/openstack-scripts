@@ -40,17 +40,17 @@ function install-common-packages() {
 	apt-get install chrony -y
 	service chrony restart
 	
-	#echo "About to configure APT for Ocata"
-	#sleep 3
-	#apt-get install software-properties-common -y
-	#ubuntu_version=`lsb_release -sr`
-	#if [ "$ubuntu_version" == "17.04" ] || [ "$ubuntu_version" == "16.04" ]
-	#then
-	#	add-apt-repository cloud-archive:ocata
-	#else
-	#	echo "Ocata release supported only on Zesty (17.04) and Xenial (16.04)"
-	#	exit 1;
-	#fi
+	echo "About to configure APT for Rocky"
+	sleep 3
+	apt-get install software-properties-common -y
+	ubuntu_version=`lsb_release -sr`
+	if [ "$ubuntu_version" == "18.04" ]
+	then
+		add-apt-repository cloud-archive:rocky
+	else
+		echo "Rocky release supported only on Bionic (18.04)"
+		exit 1;
+	fi
 
 	echo "Doing full system update"
 	sleep 3
