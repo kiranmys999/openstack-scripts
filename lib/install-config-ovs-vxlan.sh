@@ -54,7 +54,7 @@ crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup firew
 echo_and_sleep "About to restart OVS" 3
 service openvswitch-switch restart
 
-if [ "$node_type" == "controller" ] || [ "node_type" == "allinone" ]
+if [ "$node_type" == "controller" ] || [ "$node_type" == "allinone" ]
 	then
 		service neutron-server restart
 		service neutron-openvswitch-agent restart
@@ -62,7 +62,7 @@ fi
 
 sleep 1
 
-if [ "$node_type" == "networknode" ] || [ "node_type" == "controller" ] || [ "node_type" == "allinone" ]
+if [ "$node_type" == "networknode" ] || [ "$node_type" == "controller" ] || [ "$node_type" == "allinone" ]
 	then
 		service neutron-l3-agent restart
 		service neutron-dhcp-agent restart
