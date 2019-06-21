@@ -2,7 +2,7 @@ echo "Running: $0 $@"
 sleep 4
 source $(dirname $0)/config-parameters.sh
 
-node_type=`bash $(dirname $0)/detect-nodetype.sh`
+node_type=`bash $(dirname $0)/../util/detect-nodetype.sh`
 echo "Node Type detected as: $node_type"
 sleep 3
 echo "Bridge Mapping for OVS: "$neutron_ovs_bridge_mappings
