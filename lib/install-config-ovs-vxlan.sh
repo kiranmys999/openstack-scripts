@@ -20,7 +20,7 @@ echo_and_sleep "About to remove Linux Bridge and install OVS in Controller" 5
 apt-get purge -y neutron-linuxbridge-agent
 apt-get install -y neutron-openvswitch-agent
 apt-get autoremove -y
-if [ "$node_type" == "controller" ] || [ "node_type" == "allinone" ]
+if [ "$node_type" == "controller" ] || [ "$node_type" == "allinone" ]
 	then
 		echo_and_sleep "Configuring ML2 INI file" 5
                 crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 type_drivers flat,vlan,vxlan
